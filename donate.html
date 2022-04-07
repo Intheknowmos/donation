@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class marginheight="0">
+    <form action="" method="post" class="form" id="donation-form" style="height: 300px;">
+        <div id="donation-steps" class="wizard clearfix" role="application">
+            <div class="content clearfix">
+                <div class="step" id="step1">
+                    <a href="#donation-steps-h-0" id="donation-steps-t-0" aria-controls="donation-steps-p-0">
+                        <span class="current-info audible">current step:</span>
+                        <span class="tab__title">Donate</span>
+                        <span class="number">1</span>
+                    </a>
+                    <h3 class="title current" id="donation-steps-h-0" tabindex="-1">Donate</h3>
+                    <fieldset id="donation-steps-p-0" class="body current" role="tabpanel" aria-labelledby="donation-steps-h-0" aria-hidden="false">
+                    <div id="div_id_recurrence" class="control-group">
+                        <label for="id_recurrence_0" class="control-label sr__input">Recurrence</label>
+                        <div class="controls radio__select">
+                            <div class="radio__option">
+                                <input type="radio" checked="checked" name="recurrence" id="id_recurrence_1" value="One-off">
+                                <label for="id_recurrence_1" class="radio">One-off</label>
+                            </div>
+                        </div>
+                    </div>
+                        <div id="div_id_amounts" class="control-group">
+                        <label for="id_amounts" class="control-label sr__input">Amounts</label>
+                        <div class="controls radio__select">
+                            <div class="radio__option">
+                                <input type="radio" onclick="changeAmount('5')" name="amounts" id="id_amounts_1" value="5">
+                                <label for="id_amounts_1" class="radio">£5</label>
+                            </div>
+                            <div class="radio__option">
+                                <input type="radio" onclick="changeAmount('10')" checked="checked" name="amounts" id="id_amounts_2" value="10">
+                                <label for="id_amounts_2" class="radio">£10</label>
+                            </div>
+                            <div class="radio__option">
+                                <input type="radio" onclick="changeAmount('50')" name="amounts" id="id_amounts_3" value="50">
+                                <label for="id_amounts_3" class="radio">£50</label>
+                            </div>
+                            <div class="radio__option">
+                                <input type="radio" onclick="changeAmount('100')" name="amounts" id="id_amounts_4" value="100">
+                                <label for="id_amounts_4" class="radio">£100</label>
+                            </div>
+                        </div>
+                        </div>
+                        <input type="hidden" name="grecaptcha_client_token" id="id_grecaptcha_client_token">
+                        <div class="donation__two-col">
+                        <div id="div_id_amount" class="control-group">
+                            <label for="id_amount" class="control-label requiredField ">
+                                Other Amount
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="number" name="amount" step="0.01" class="numberinput" required id="id_amount">
+                            </div>
+                        </div>
+                        <div id="div_id_currency" class="control-group">
+                            <label for="id_currency" class="control-label requiredField">
+                                Currency 
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls">
+                                <select name="currency" id="id_currency" class="select">
+                                    <option value="USD">$ USD</option>
+                                    <option value="GBP" selected>£ GBP</option>
+                                    <option value="EURO">€ EUR</option>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
+                            <div id="prefilled-donation-form" class="hidden" data-prefilled></div>
+                            <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
+                                <label>leave this field blank to prove your humanity
+                                 <input type="text" name="email" value>
+                                </label>
+                            </div>
+                        <div class="action">
+                            <button type="button" class="back" id="firstback" disabled>Back</button>
+                            <button type="button" class="next" id="next1">Next</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="step" id="step2">
+                    <a href="#donation-steps-h-1" id="donation-steps-t-1" aria-controls="donation-steps-p-1">
+                        <span class="tab__title">Your info</span>
+                        <span class="number">2</span>
+                    </a>
+                    <h3 id="donation-steps-h-1" tabindex="-1" class="title">Your Info</h3>
+                    <fieldset id="donation-steps-p-1" role="tabpanel" aria-labelledby="donation-steps-h-1" class="body" aria-hidden="true">
+                    <div class="donation__summary intermediary">
+                        <p class="donation__title">You're donating</p>
+                        <p class="donation__amount js-donation-amount" id="js-donation-amount">$100, One-off</p>
+                    </div>
+                    <div class="form__halves">
+                        <div id="div_id_first_name" class="control-group">
+                            <label for="first_name" class="control-label requiredField">
+                                First name
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" name="first_name" maxlength="64" class="textinput textInput" required id="first_name">
+                            </div>
+                        </div>
+                        <div id="div_id_last_name" class="control-group">
+                            <label for="last_name" class="control-label requiredField">
+                                Last name
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" name="last_name" maxlength="64" class="textinput textInput" required id="last_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="div_id_client_email" class="control-group">
+                        <label for="client_email" class="control-label requiredField">
+                            Email
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" name="client_email" maxlength="254" class="emailinput" required id="client_email">
+                        </div>
+                    </div>
+                    <div id="div_id_address" class="control-group">
+                        <label for="address" class="control-label requiredField">
+                            Address
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" name="address" maxlength="64" class="textinput textInput" required id="address">
+                        </div>
+                    </div>
+                    <div class="form__halves">
+                        <div id="div_id_city" class="control-group">
+                            <label for="city" class="control-label requiredField">
+                                State
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" name="city" maxlength="64" class="textinput textInput" required id="city">
+                            </div>
+                        </div>
+                        <div id="div_id_post_code" class="control-group">
+                            <label for="post_code" class="control-label requiredField">
+                                ZIP Code
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" name="post_code" maxlength="12" class="textinput textInput" required id="post_code">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="div_id_message" class="control-group">
+                        <label for="message" class="control-label requiredField">
+                            Message
+                        </label>
+                        <div class="controls">
+                            <textarea name="message" class="textarea" id="message" cols="40" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div id="div_id_country" class="control-group">
+                        <label for="country" class="control-label requiredField">
+                            Country
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="controls">
+                            <select name="country" id="country" class="lazyselect" required>
+                                <option value>---------</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AX">Aland Islands</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AS">American Samoa</option>
+                                <option value="AD">Andorra</option>
+                                <option value="AO">Angola</option>
+                                <option value="AI">Anguilla</option>
+                                <option value="AQ">Antartica</option>
+                                <option value="AG">Antigua and Barbuda</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AW">Aruba</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austia</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BH">Bahrain</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BB">Barbados</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BM">Bermuda</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia</option>
+                                <option value="BQ">Boniare, Sint Eustatius and Saba</option>
+                                <option value="BA">Bosnia and Herzegovina</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BV">Bouvet Island</option>
+                                <option value="BR">Brazil</option>
+                                <option value="IO">British Indian Ocean Territory</option>
+                                <option value="BN">Brunei</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="CV">Cabo Verde</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="KY">Cayman Isalnds</option>
+                                <option value="CF">Central Africa Republic</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
+                                <option value="CN">China</option>
+                                <option value="CX">Christmas Islands</option>
+                                <option value="CC">Cocos (Keeling) Islands</option>
+                                <option value="CO">Colombia</option>
+                                <option value="KM">Comoros</option>
+                                <option value="CG">Congo</option>
+                                <option value="CD">Congo (the Democratic Republic of the)</option>
+                                <option value="CK">Cook Islands</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="CI">Cote d'Ivoire</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CU">Cuba</option>
+                                <option value="CW">Curacao</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czech</option>
+                                <option value="DK">Denmark</option>
+                                <option value="DJ">Djibouti</option>
+                                <option value="DO">Dominica</option>
+                                <option value="DM">Dominican Republic</option>
+                                <option value="EC">Ecuador</option>
+                                <option value="EG">Egypt</option>
+                                <option value="SV">El Salvador</option>
+                                <option value="GQ">Equatoria Guinea</option>
+                                <option value="ER">Eritrea</option>
+                                <option value="EE">Estonia</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="FK">Falkland Islands (Malvinas)</option>
+                                <option value="FO">Faroe Islands</option>
+                                <option value="FJ">Fiji</option>
+                                <option value="FI">Finland</option>
+                                <option value="FR">France</option>
+                                <option value="GF">French Guiana</option>
+                                <option value="PF">French Polynesia</option>
+                                <option value="TF">French Southern Territories</option>
+                                <option value="GA">Gabon</option>
+                                <option value="GM">Gambia</option>
+                                <option value="GE">Georgia</option>
+                                <option value="DE">Germany</option>
+                                <option value="GH">Ghana</option>
+                                <option value="GI">Gibraltar</option>
+                                <option value="GR">Greece</option>
+                                <option value="GL">Greenland</option>
+                                <option value="GD">Grenaada</option>
+                                <option value="GP">Guadeloupe</option>
+                                <option value="GU">Guam</option>
+                                <option value="GT">Guatemala</option>
+                                <option value="GG">Guernsey</option>
+                                <option value="GN">Guinea</option>
+                                <option value="GW">Guinea-Bissau</option>
+                                <option value="GY">Guyana</option>
+                                <option value="HT">Haiti</option>
+                                <option value="HM">Heard Islands and McDonald Islands</option>
+                                <option value="VA">Holy See</option>
+                                <option value="HN">Honduras</option>
+                                <option value="HK">Hong Kong</option>
+                                <option value="HU">Hungary</option>
+                                <option value="IS">Iceland</option>
+                                <option value="IN">India</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="IR">Iran</option>
+                                <option value="IQ">Iraq</option>
+                                <option value="IE">Ireland</option>
+                                <option value="IM">Isle of Man</option>
+                                <option value="IL">Israel</option>
+                                <option value="IT">Italy</option>
+                                <option value="JM">Jamaica</option>
+                                <option value="JP">Japan</option>
+                                <option value="JE">Jersey</option>
+                                <option value="JO">Jordan</option>
+                                <option value="KZ">Kazakhstan</option>
+                                <option value="KE">Kenya</option>
+                                <option value="KI">Kiribati</option>
+                                <option value="XK">Kosovo</option>
+                                <option value="QR">Kudistan</option>
+                                <option value="KW">Kuwait</option>
+                                <option value="KG">Krygyzstan</option>
+                                <option value="LA">Laos</option>
+                                <option value="LV">Latvia</option>
+                                <option value="LB">Lebanon</option>
+                                <option value="LS">Lesotho</option>
+                                <option value="LR">Liberia</option>
+                                <option value="LY">Libya</option>
+                                <option value="LI">Liechtenstein</option>
+                                <option value="LT">Lithuania</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="MO">Macoa</option>
+                                <option value="MK">Macedonia</option>
+                                <option value="MG">Madagascar</option>
+                                <option value="MW">Malawi</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="MV">Maldives</option>
+                                <option value="ML">Mali</option>
+                                <option value="MT">Malta</option>
+                                <option value="MH">Marshall Islands</option>
+                                <option value="MQ">Martinique</option>
+                                <option value="MR">Mauritania</option>
+                                <option value="MU">Mauritius</option>
+                                <option value="YT">Mayotte</option>
+                                <option value="MX">Mexico</option>
+                                <option value="FM">Micronesia (Federated States of)</option>
+                                <option value="MD">Moldova</option>
+                                <option value="MC">Monaco</option>
+                                <option value="MN">Mongolia</option>
+                                <option value="ME">Montenegro</option>
+                                <option value="MS">Montserrat</option>
+                                <option value="MA">Morocco</option>
+                                <option value="MZ">Mozambique</option>
+                                <option value="MM">Myanmar</option>
+                                <option value="NA">Namibia</option>
+                                <option value="NR">Nauru</option>
+                                <option value="NP">Nepal</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="NC">New Caledonia</option>
+                                <option value="NZ">New Zealand</option>
+                                <option value="NI">Nicaragua</option>
+                                <option value="NE">Niger</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="NU">Niue</option>
+                                <option value="NF">Norfolk Island</option>
+                                <option value="KP">North Korea</option>
+                                <option value="MP">Northern Marina Islands</option>
+                                <option value="NO">Norway</option>
+                                <option value="OM">Oman</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="PW">Palau</option>
+                                <option value="PS">Palestine, State of</option>
+                                <option value="PA">Panama</option>
+                                <option value="PG">Papua New Guinea</option>
+                                <option value="PY">Paraguay</option>
+                                <option value="PE">Peru</option>
+                                <option value="PH">Philippines</option>
+                                <option value="PN">Pitcairn</option>
+                                <option value="PL">Poland</option>
+                                <option value="PT">Portugal</option>
+                                <option value="PR">Puerto Rico</option>
+                                <option value="QA">Qatar</option>
+                                <option value="RE">Reunion</option>
+                                <option value="RO">Romania</option>
+                                <option value="RU">Russia</option>
+                                <option value="RW">Rwanda</option>
+                                <option value="BL">Saint Barthelemy</option>
+                                <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                <option value="KN">Saint Kitts and Nevis</option>
+                                <option value="LC">Saint Lucia</option>
+                                <option value="MF">Saint Martin (French Part)</option>
+                                <option value="PM">Saint Pierre and Miquelon</option>
+                                <option value="VC">Saint Vincent and the Grenadines</option>
+                                <option value="WS">Samoa</option>
+                                <option value="SM">San Marino</option>
+                                <option value="ST">Sao Tome and Principe</option>
+                                <option value="SA">Saudi Arabia</option>
+                                <option value="SN">Senegal</option>
+                                <option value="RS">Serbia</option>
+                                <option value="SC">Seychelles</option>
+                                <option value="SL">Sierra Leone</option>
+                                <option value="SG">Singapore</option>
+                                <option value="SX">Sint Maarten (Dutch Part)</option>
+                                <option value="SK">Slovakia</option>
+                                <option value="SI">Slovenia</option>
+                                <option value="SB">Solomon Islands</option>
+                                <option value="SO">Somalia</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                <option value="KR">South Korea</option>
+                                <option value="SS">South Sudan</option>
+                                <option value="ES">Spain</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="SD">Sudan</option>
+                                <option value="SR">Suriname</option>
+                                <option value="SJ">Svalbard and Jan Mayen</option>
+                                <option value="SZ">Swaziland</option>
+                                <option value="SE">Sweden</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="SY">Syria</option>
+                                <option value="TW">Taiwan</option>
+                                <option value="TJ">Tajikistan</option>
+                                <option value="TZ">Tanzania</option>
+                                <option value="TH">Thailand</option>
+                                <option value="TL">Timor-Leste</option>
+                                <option value="TG">Togo</option>
+                                <option value="TK">Tokelau</option>
+                                <option value="TO">Tonga</option>
+                                <option value="TT">Trinidad and Tobago</option>
+                                <option value="TN">Tunisia</option>
+                                <option value="TR">Turkey</option>
+                                <option value="TM">Turkmenistan</option>
+                                <option value="TC">Turks and Caicos Islands</option>
+                                <option value="TV">Tuvalu</option>
+                                <option value="UG">Uganda</option>
+                                <option value="UA">Ukraine</option>
+                                <option value="AE">United Arab Emirates</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="UM">United States Minor Outlying Islands</option>
+                                <option value="US">United States of America</option>
+                                <option value="UY">Uruguay</option>
+                                <option value="UZ">uzbekistan</option>
+                                <option value="VU">Vanuatu</option>
+                                <option value="VE">Venezuela</option>
+                                <option value="VN">Vietnam</option>
+                                <option value="VG">Virgin Isalnds (British)</option>
+                                <option value="VI">Virgin Islands (U.S.)</option>
+                                <option value="WF">Wallis and Futuna</option>
+                                <option value="EH">Western Sahara</option>
+                                <option value="YE">Yemen</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="ZW">Zimbabwe</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="checkboxes">
+                        <div id="div_id_is_anonymous_donation" class="control-group">
+                            <div class="controls">
+                                <div class="checkbox__control">
+                                    <input type="checkbox" name="is_anonymous_donation" class="checkboxinput" id="id_is_anonymous_donation">
+                                    <label for="id_is_anonymous_donation" class>
+                                        <div class="checkbox__status"></div>
+                                        <div class="checkbox__label">Keep my donation anonymous</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-optin">
+                        <div id="div_id_can_be_contacted" class="control-group">
+                            <label for="id_can_be_contacted_0" class="control-label requiredField sr__input">
+                                We would love to keep you posted about our important work and how you can always help make a difference.
+                                <br>
+                                I am happy for 
+                                <span id="comms_info_brand_name">Kids In Kyiv</span>
+                                to contact me by email 
+                                <span id="comms_info_toggle_holder">
+                                    <button type="button" id="comms_info_toggle" aria-haspopup="true" aria-expanded="false" aria-controls="comms-info__information">more information</button></span>
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="controls radio__select">
+                                <div class="radio__option">
+                                    <input type="radio" name="can_be_contacted" id="id_can_be_contacted_1" value="true" required="required">
+                                    <label for="id_can_be_contacted_1" class="radio">Yes</label>
+                                </div>
+                                <div class="radio__option">
+                                    <input type="radio" name="can_be_contacted" id="id_can_be_contacted_2" value="false" required="required">
+                                    <label for="id_can_be_contacted_2" class="radio">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="control-label">
+                        We always keep your personal details safe and never share them with any organisations for any marketing purposes. 
+                        You can change your preferences anytime by contacting us at 
+                        <a href="mailto:contact@kidsinkyiv.org">contact@kidsinkyiv</a>
+                    </p>
+                    <p class="control-label">
+                        For more about how we utilize your data <a href="https://kidsinkyiv.org/privacy-policy/" target="_blank">read our privacy policy.</a> 
+                    </p>
+                    <div class="action">
+                        <button type="button" class="back">Back</button>
+                        <button type="button" class="next" id="nexttt">Next</button>
+                    </div>
+                    </fieldset>
+                </div>
+                <div class="step" id="step3">
+                    <a href="#donation-steps-h-2" id="donation-steps-t-2" aria-controls="donation-steps-p-2">
+                        <span class="tab__title">Payment</span>
+                        <span class="number">3</span>
+                    </a>
+                    <h3 id="donation-steps-h-2" tabindex="-1" class="title">Payment</h3>
+                    <fieldset id="donation-steps-p-2" role="tabpanel" aria-labelledby="donation-steps-h-2" class="body" aria-hidden="true"> 
+                    <div class="donation__summary">
+                        <p class="donation__title">Your donation</p>
+                        <p class="donation__amount js-donation-amount" id="js-donation-amount">$100, One-off</p>
+                    </div>
+                    <div>
+                        <p id="choose">Choose a way to pay</p>
+                    </div>
+                    <div class="pay_method">
+                        <button type="button" class="collapsible"><img src="./images/btclogo.svg">Donate Bitcoin</button>
+                        <div class="contents">
+                            <div class="payment_contents">
+                                <p id="paycontents_title">Address for Bitcoin</p>
+                                <img src="./images/btc.png" alt="" id="pay_img">
+                                <input type="text" name="" id="payaddress" value="bc1qd6yjm375tem3mu8zlhl58xl3qa8xl6yww40tn3" style="text-align:center;" readonly>
+                                <div class="tooltip">
+                                    <button type="button" onclick="copyMe()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy Wallet</span>Copy to Clipboard</button>
+                                </div>
+                            </div>
+                            <p id="pay_warning">
+                                <span class="asteriskField">*</span>
+                                Please send only BTC to the wallet address above.</p>
+                        </div>
+                        <button type="button" class="collapsible"><img src="./images/ethlogo.svg">Donate Ethereum</button>
+                        <div class="contents">
+                            <div class="payment_contents">
+                                <p id="paycontents_title">Address for Ethereum</p>
+                                <img src="./images/eth.png" alt="" id="pay_img">
+                                <input type="text" name="" id="payaddress1" value="0x1492D287f2F0784bD6608cfDfED6D89d96Ea2456" style="text-align:center;" readonly>
+                                <div class="tooltip">
+                                    <button type="button" onclick="copyMee()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy Wallet</span>Copy to Clipboard</button>
+                                </div>
+                            </div>
+                            <p id="pay_warning">
+                                <span class="asteriskField">*</span>
+                                Please send only Ethereum to the wallet address above. Please note that the wallet address above is for only ETH on the Ethereum (ERC) network.</p>
+                        </div>
+                        <button type="button" class="collapsible"><img src="./images/bnblogo.svg">Donate BNB</button>
+                        <div class="contents">
+                            <div class="payment_contents">
+                                <p id="paycontents_title">Address for BNB</p>
+                                <img src="" alt="" srcset="">
+                                <input type="text" name="" id="payaddress2" value="bnb1g6mjtp0lkluzmjf7900h2r5pe59l2tdunq4atu" style="text-align:center;" readonly>
+                                <div class="tooltip">
+                                    <button type="button" onclick="copyMeee()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy Wallet</span>Copy to Clipboard</button>
+                                </div>
+                            </div>
+                            <p id="pay_warning">
+                                <span class="asteriskField">*</span>
+                                Please send only BNB to the wallet address above. Please note that the wallet address above is for only BNB on the BNB Beacon Chain (BEP2) network.</p>
+                        </div>
+                        <button type="button" class="collapsible"><img src="./images/usdtlogo.svg">Donate USDT</button>
+                        <div class="contents">
+                            <div class="payment_contents">
+                                <p id="paycontents_title">Address for USDT</p>
+                                <img src="./images/eth.png" alt="" id="pay_img">
+                                <input type="text" name="" id="payaddress3" value="0x1492D287f2F0784bD6608cfDfED6D89d96Ea2456" style="text-align:center;" readonly>
+                                <div class="tooltip">
+                                    <button type="button" onclick="copyMeeee()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy Wallet</span>Copy to Clipboard</button>
+                                </div>
+                            </div>
+                            <p id="pay_warning">
+                                <span class="asteriskField">*</span>
+                                Please send only USDT to the wallet address above. Please note that the wallet address above is for only USDT on the Ethereum (ERC) network.</p>
+                        </div>
+                        <button type="button" class="collapsible">Donate BTC, ETH, BNB, and USDT via BSC network</button>
+                        <div class="contents">
+                            <div class="payment_contents">
+                                <p id="paycontents_title">Address for BTC, ETH, BNB, and USDT via BSC network</p>
+                                <img src="./images/bsc.jpg" alt="" id="pay_img">
+                                <input type="text" name="" id="payaddress4" value="0xb9eD0BcFA35A3C2b1c558A96dA677572CCF15962" style="text-align:center;" readonly>
+                                <div class="tooltip">
+                                    <button type="button" onclick="copyMeeeee()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy Wallet</span>Copy to Clipboard</button>
+                                </div>
+                            </div>
+                            <p id="pay_warning">
+                                <span class="asteriskField">*</span>
+                                Please send only coins on the Binance Smart Chain (BSC) network to the wallet address above.</p>
+                        </div>
+                    </div>
+                    <div class="action">
+                        <button type="button" class="back">Back</button>
+                        <button type="submit" class="submit">Submit</button>
+                    </div>
+                    </fieldset> 
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./app.js"></script>
+    <script src="./donation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <!-- <script src="./iframeResizer.contentWindow.min.js"></script> -->
+    <script src="./validate-it.js"></script>
+</body>
+</html>
